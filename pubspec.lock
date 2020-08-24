@@ -62,11 +62,46 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_page_indicator:
+    dependency: transitive
+    description:
+      name: flutter_page_indicator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.3"
+  flutter_swiper:
+    dependency: "direct main"
+    description:
+      name: flutter_swiper
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webview_plugin:
+    dependency: "direct main"
+    description:
+      name: flutter_webview_plugin
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.11"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.12.2"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.4"
   matcher:
     dependency: transitive
     description:
@@ -88,6 +123,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.7.0"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.9.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -135,6 +177,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.18"
+  transformer_page_view:
+    dependency: transitive
+    description:
+      name: transformer_page_view
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.6"
   typed_data:
     dependency: transitive
     description:
@@ -151,3 +200,4 @@ packages:
     version: "2.1.0-nullsafety"
 sdks:
   dart: ">=2.9.0-18.0 <2.9.0"
+  flutter: ">=0.1.4 <3.0.0"
