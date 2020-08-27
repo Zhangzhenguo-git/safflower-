@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
+const CATCH_URLS = ['m.ctrip.com/', 'm.ctrip.com/html5/', 'm.ctrip.com/html5'];
+
 class WebView extends StatefulWidget {
   final String url;
   final String statusBarColor;
@@ -10,12 +12,13 @@ class WebView extends StatefulWidget {
   final bool hideAppBar;
   final bool backFrobid;
 
-  const WebView({Key key,
-    this.url,
-    this.statusBarColor,
-    this.title,
-    this.hideAppBar,
-    this.backFrobid})
+  const WebView(
+      {Key key,
+      this.url,
+      this.statusBarColor,
+      this.title,
+      this.hideAppBar,
+      this.backFrobid = false})
       : super(key: key);
 
   @override
@@ -27,6 +30,7 @@ class _WebViewState extends State<WebView> {
   StreamSubscription<String> _onUrlChanged;
   StreamSubscription<WebViewStateChanged> _onStateChanged;
   StreamSubscription<WebViewHttpError> _onHttpError;
+  bool exiting = false;
 
   @override
   void initState() {
@@ -38,17 +42,32 @@ class _WebViewState extends State<WebView> {
     _onUrlChanged = webviewReference.onUrlChanged.listen((String url) {});
     _onStateChanged =
         webviewReference.onStateChanged.listen((WebViewStateChanged changed) {
-          switch (changed.type) {
-            case WebViewState.startLoad:
-              break;
-            default:
-              break;
+      switch (changed.type) {
+        case WebViewState.startLoad:
+          if (_isToMain(changed.url) && !exiting) {
+            if (widget.backFrobid) {
+              webviewReference.launch(widget.url);
+            } else {
+              Navigator.pop(context);
+              exiting = true;
+            }
           }
-        });
+          break;
+        default:
+          break;
+      }
+    });
     _onHttpError =
         webviewReference.onHttpError.listen((WebViewHttpError httpError) {
-          print(httpError);
-        });
+      print(httpError);
+    });
+  }
+
+  _isToMain(String url) {
+    bool contain = false;
+    for (final value in CATCH_URLS) {
+      if (url?.endsWith(value) ?? false) {}
+    }
   }
 
   @override
@@ -63,34 +82,35 @@ class _WebViewState extends State<WebView> {
 
   @override
   Widget build(BuildContext context) {
-    String statusbarColorStr=widget.statusBarColor??'ffffff';
+    String statusbarColorStr = widget.statusBarColor ?? 'ffffff';
     Color backButtonColor;
-    if(statusbarColorStr=='ffffff'){
-      backButtonColor=Colors.black;
-    }else{
-      backButtonColor=Colors.white;
+    if (statusbarColorStr == 'ffffff') {
+      backButtonColor = Colors.black;
+    } else {
+      backButtonColor = Colors.white;
     }
     return Scaffold(
       body: Column(
         children: [
-          _appBar(Color(int.parse('0xff'+statusbarColorStr)), backButtonColor),
+          _appBar(
+              Color(int.parse('0xff' + statusbarColorStr)), backButtonColor),
           Expanded(
               child: WebviewScaffold(
-                url: widget.url,
+            url: widget.url,
 //                是否可以缩放
-                withZoom:true,
+            withZoom: true,
 //                是否启用缓存
-                withLocalStorage: true,
+            withLocalStorage: true,
 //              是否隐藏
-              hidden: true,
+            hidden: true,
 //              初始化页面
-              initialChild: Container(
-                color: Colors.white,
-                child: Center(
-                  child: Text('wwwww'),
-                ),
+            initialChild: Container(
+              color: Colors.white,
+              child: Center(
+                child: Text('wwwww'),
               ),
-              ))
+            ),
+          ))
         ],
       ),
     );
@@ -104,6 +124,8 @@ class _WebViewState extends State<WebView> {
       );
     }
     return Container(
+      color: backgroundColor,
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
 //      内容充满
       child: FractionallySizedBox(
         widthFactor: 1,
@@ -112,16 +134,20 @@ class _WebViewState extends State<WebView> {
             GestureDetector(
               child: Container(
                 margin: EdgeInsets.only(left: 10),
-                child: Icon(Icons.close, color: backgroundColor, size: 26.0,),
+                child: Icon(
+                  Icons.close,
+                  color: backgroundColor,
+                  size: 26.0,
+                ),
               ),
             ),
             Positioned(
                 left: 0.0,
                 child: Center(
-                  child: Text(widget.title ?? '',
-                    style: TextStyle(
-                        color: backButtonColor, fontSize: 20.0
-                    ),),
+                  child: Text(
+                    widget.title ?? '',
+                    style: TextStyle(color: backButtonColor, fontSize: 20.0),
+                  ),
                 ))
           ],
         ),

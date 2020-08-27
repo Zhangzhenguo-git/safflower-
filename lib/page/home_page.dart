@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:safflower/dao/home_dao.dart';
 import 'package:safflower/model/common_model.dart';
+import 'package:safflower/model/grid_nav_model.dart';
 import 'package:safflower/model/home_model.dart';
 import 'package:safflower/widget/Local_nav.dart';
 import 'package:safflower/widget/grid_nav.dart';
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   ];
   double appBarAlpha = 0;
   List<CommonModel> localNavList = [];
+  GridNavModel gridNavModel;
 
   @override
   void initState() {
@@ -58,6 +61,7 @@ class _HomePageState extends State<HomePage> {
       HomeModel model = await HomeDao.fetch();
       setState(() {
         localNavList = model.localNavList;
+        gridNavModel = model.gridNav;
       });
     } catch (error) {
       print(error);
@@ -99,6 +103,22 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                       padding: EdgeInsets.fromLTRB(6, 5, 6, 5),
                       child: LocalNav(localNavList: localNavList)),
+//                  Padding(
+//                    padding: EdgeInsets.fromLTRB(6, 5, 6, 5),
+//                    child: GridNav(
+//                      gridNavModel: gridNavModel,
+//                    ),
+//                  ),
+                  Container(
+//                    设置内边距
+                      padding: EdgeInsets.fromLTRB(6, 5, 6, 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.transparent,
+                      ),
+                      child: GridNav(
+                        gridNavModel: gridNavModel,
+                      )),
                   Container(
                     height: 800.0,
                     child: Text("resultString"),
