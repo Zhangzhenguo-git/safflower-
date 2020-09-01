@@ -8,8 +8,10 @@ import 'package:safflower/dao/home_dao.dart';
 import 'package:safflower/model/common_model.dart';
 import 'package:safflower/model/grid_nav_model.dart';
 import 'package:safflower/model/home_model.dart';
+import 'package:safflower/model/sales_box_model.dart';
 import 'package:safflower/widget/Local_nav.dart';
 import 'package:safflower/widget/grid_nav.dart';
+import 'package:safflower/widget/sales_box.dart';
 import 'package:safflower/widget/sub_nav.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   double appBarAlpha = 0;
   List<CommonModel> localNavList = [];
   List<CommonModel> subNavList = [];
+  SalesBoxModel salesBox;
   GridNavModel gridNavModel;
 
   @override
@@ -64,6 +67,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         localNavList = model.localNavList;
         subNavList = model.subNavList;
+        salesBox = model.salesBox;
         gridNavModel = model.gridNav;
       });
     } catch (error) {
@@ -119,6 +123,9 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                       padding: EdgeInsets.fromLTRB(6, 5, 6, 5),
                       child: SubNav(subNavList: subNavList)),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(6, 5, 6, 5),
+                      child: SalseBox(salseBox: salesBox)),
                   Container(
                     height: 800.0,
                     child: Text("resultString"),
