@@ -1,8 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:safflower/model/common_model.dart';
-import 'package:safflower/model/grid_nav_model.dart';
 import 'package:safflower/model/sales_box_model.dart';
 import 'package:safflower/widget/webview.dart';
 
@@ -35,7 +32,7 @@ class SalseBox extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 44.0,
+          height: 46.0,
           margin: EdgeInsets.only(left: 10.0),
           decoration: BoxDecoration(
             border: Border(
@@ -80,21 +77,21 @@ class SalseBox extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: items.sublist(0, 1),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: items.sublist(1, 2),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: items.sublist(2, 3),
-              ),
             ],
           ),
-        )
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: items.sublist(0, 1),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: items.sublist(1, 2),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: items.sublist(2, 3),
+        ),
       ],
     );
   }
